@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"fmt"
 	"math/rand/v2"
 	"os"
 	"strconv"
@@ -12,6 +13,8 @@ import (
 
 var QueueKey = os.Getenv("TRAIL_NAME") + ":queued_tables"
 var PointerKey = os.Getenv("TRAIL_NAME") + ":queue_pointer"
+
+var TablesInitialized bool = false
 
 var advancePointerScript = redis.NewScript(`
 	local tableName = KEYS[1]
@@ -66,12 +69,18 @@ func InitQueue(tables []string) error {
 		pipe.Set(ctx, PointerKey, 0, 0)
 		return nil
 	})
+
+	TablesInitialized = true
 	return err
 }
 
 func GetNextTable() (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
+	if !TablesInitialized {
+		return "", fmt.Errorf("Airtable list is not initalized in redis cache!")
+	}
 
 	for {
 		length, err := client.LLen(ctx, QueueKey).Result()

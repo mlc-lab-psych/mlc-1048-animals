@@ -68,6 +68,14 @@ func (tb *TokenBucket) Allow(ctx context.Context, key string) (bool, int64, erro
 
 func RedisRateLimiter(rate float64, capacity float64) gin.HandlerFunc {
 
+	if client == nil {
+		logging.Logger.WithFields(logrus.Fields{"module": "api", "method": "RedisRateLimiter"}).Warn("Redis cache was not initalized, proceeding with no rate limit!")
+
+		return func(c *gin.Context) {
+			c.Next()
+		}
+	}
+
 	limiter := NewTokenBucket(rate, capacity)
 
 	return func(c *gin.Context) {
@@ -75,7 +83,7 @@ func RedisRateLimiter(rate float64, capacity float64) gin.HandlerFunc {
 		allowed, tokens, err := limiter.Allow(c, ip)
 
 		if err != nil {
-			logging.Logger.WithFields(logrus.Fields{"module": "api", "method": "RedisRateLimiter"}).Warn(fmt.Sprintf("Failure in the redis cache %v", err))
+			logging.Logger.WithFields(logrus.Fields{"error": err, "module": "api", "method": "RedisRateLimiter"}).Warn("Failure in the redis cache")
 		} else if !allowed {
 			c.JSON(http.StatusTooManyRequests, gin.H{
 				"error": "Too many requests!",

@@ -28,13 +28,16 @@ var embeddedFS embed.FS
 var staticFS embed.FS
 
 func main() {
-	redis.InitRedis()
+	err := redis.InitRedis()
+	if err != nil {
+		logging.Logger.WithFields(logrus.Fields{"error": err, "module": "main", "method": "main"}).Warn("error launching redis! Proceeding without redis")
+	}
 	firebase.InitFirebase(context.Background())
 
 	var tableMap map[string]string
 	var tableList []string
 
-	err := json.Unmarshal([]byte(os.Getenv("AIRTABLE_TABLES")), &tableMap)
+	err = json.Unmarshal([]byte(os.Getenv("AIRTABLE_TABLES")), &tableMap)
 	if err != nil {
 		logging.Logger.WithFields(logrus.Fields{"error": err, "module": "main", "method": "main"}).Fatal("error loading airtables!")
 	}
@@ -48,7 +51,7 @@ func main() {
 
 	err = redis.InitQueue(tableList)
 	if err != nil {
-		logging.Logger.WithFields(logrus.Fields{"error": err, "module": "main", "method": "LoadAllAirtables"}).Fatal("error queuing redis airtables!")
+		logging.Logger.WithFields(logrus.Fields{"error": err, "module": "main", "method": "LoadAllAirtables"}).Warn("error queuing redis airtables!")
 	}
 
 	err = airtable.LoadAllAirtables(tableMap)
