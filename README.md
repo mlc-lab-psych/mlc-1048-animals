@@ -9,7 +9,7 @@ This project uses Go, [Gin](https://gin-gonic.com/en/), HTML/CSS, Javascript, an
 These projects use alot of environmental secrets in order to hide database and airtable data. The repo includes an attached .env.template file for guranteeing env variables are named properly
 
 ```
-TRAIL_NAME=my-experiment # Used For Internal naming schemes in databases
+TRAIL_NAME=mlc-1048 # Used For Internal naming schemes in databases
 
 FIREBASE_CREDENTIALS_JSON= # JSON Credentials for authenticating into the Firebase
 FIREBASE_DATABASE_URL= # URL for connecting to the Firebase
