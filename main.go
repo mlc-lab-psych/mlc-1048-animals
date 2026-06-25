@@ -44,11 +44,6 @@ func main() {
 
 	tableList = slices.Collect(maps.Keys(tableMap))
 
-	err = firebase.CreateCountTables(tableList)
-	if err != nil {
-		logging.Logger.WithFields(logrus.Fields{"error": err, "module": "main", "method": "CreateCountTables"}).Fatal("error creating count tables!")
-	}
-
 	err = redis.InitQueue(tableList)
 	if err != nil {
 		logging.Logger.WithFields(logrus.Fields{"error": err, "module": "main", "method": "LoadAllAirtables"}).Warn("error queuing redis airtables!")

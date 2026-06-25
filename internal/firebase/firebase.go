@@ -39,28 +39,6 @@ func InitFirebase(ctx context.Context) {
 	logging.Logger.WithFields(logrus.Fields{"module": "firebase", "method": "initFirebase"}).Info("connected to firebase!")
 }
 
-func CreateCountTables(tableNames []string) error {
-
-	ref := database.NewRef("count")
-
-	for _, name := range tableNames {
-
-		var count *int
-		childRef := ref.Child(name)
-
-		err := childRef.Get(context.Background(), &count)
-		if err != nil {
-			return err
-		}
-
-		if count == nil {
-			err = childRef.Set(context.Background(), 0)
-		}
-	}
-
-	return nil
-}
-
 func PushToDatabase(ctx context.Context, cleanedData []map[string]any) error {
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
