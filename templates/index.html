@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="preload" as="image" href="/static/images/words_animate_Cat1.png">
+    <link rel="preload" as="image" href="/static/images/words_animate_Cat2.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -160,7 +162,7 @@
             const block_0 = {
                 type: jsPsychHtmlKeyboardResponse,
                 choices: [" "],
-                stimulus:`<img src='${cat_img}' style='max-width:500px;width:100%;height:auto;' alt="">` +
+                stimulus:`<img src='/static/images/${cat_img}' style='max-width:500px;width:100%;height:auto;' alt="">` +
                     `<p>Put a left finger on the D key for items that belong to the category <b>${category_displays[1][0]}</b>. <br/><br/>` +
                     `Put a right finger on the K key for items that belong to the category <b>${category_displays[1][1]}</b>. <br/><br/>` +
                     "Items will appear one at a time. <br/><br/>" +

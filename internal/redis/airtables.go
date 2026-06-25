@@ -49,6 +49,10 @@ func reshuffleQueue() error {
 }
 
 func InitQueue(tables []string) error {
+	if client == nil {
+		return fmt.Errorf("Redis has not been initalized")
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 
@@ -75,12 +79,12 @@ func InitQueue(tables []string) error {
 }
 
 func GetNextTable() (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
 	if !TablesInitialized {
 		return "", fmt.Errorf("Airtable list is not initalized in redis cache!")
 	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	for {
 		length, err := client.LLen(ctx, QueueKey).Result()
