@@ -104,8 +104,8 @@ func ProcessAirTable(airtable []AirtableRecord) (SavedData, error) {
 			idx = 0
 		}
 
-		if !contains(categoryDisplay[record.Fields.Block][idx], record.Fields.Category) {
-			categoryDisplay[record.Fields.Block][idx] = append(categoryDisplay[record.Fields.Block][idx], record.Fields.Category)
+		if !contains(categoryDisplay[record.Fields.Block][idx], record.Fields.CategoryDisplay) {
+			categoryDisplay[record.Fields.Block][idx] = append(categoryDisplay[record.Fields.Block][idx], record.Fields.CategoryDisplay)
 		}
 	}
 
