@@ -47,7 +47,7 @@ func PushToDatabase(ctx context.Context, cleanedData []map[string]any) error {
 	if err != nil {
 		logging.Logger.WithFields(logrus.Fields{"error": err, "module": "firebase", "method": "PushToDatabase"}).Warn("error generating the UUID7")
 	}
-	err = database.NewRef(fmt.Sprintf("users/%s", id.String())).Set(ctx, cleanedData)
+	err = database.NewRef(fmt.Sprintf("users/new/%s", id.String())).Set(ctx, cleanedData)
 
 	return err
 }
