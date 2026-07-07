@@ -105,7 +105,7 @@
                 }
             }
 
-            let subject_id = "iat_animal_" + crypto.randomUUID();
+            let subject_id = crypto.randomUUID();
             let worker_id = getParamFromURL('PROLIFIC_PID') || subject_id;
             let study_id = getParamFromURL('STUDY_ID') || "NULL";
             let session_id = getParamFromURL('SESSION_ID') || "NULL";
@@ -133,7 +133,7 @@
                 preamble: '',
                 html: `
                     <div style="max-width: 1200px" class="left">
-                            <label style="text-align: left !important;">The research study you are about to do is sponsored by Rochester Institute of Technology (RIT). The task you are asked to do involves making simple responses to images, words, and sentences.
+                            <label style="text-align: left !important;">The research study you are about to do is sponsored by Rochester Institute of Technology (RIT). The task you are asked to do involves making simple responses to words and sentences.
                             <br><br>This task has no direct benefits. We do not anticipate any psychosocial, social, or legal risks. Participants may become fatigued or frustrated due to the length of the study. The responses you submit as part of this task will be stored on a secure server and accessible only to researchers who have been approved by RIT. Processed data with all identifiers removed could be used for future research studies or distributed to another investigator for future research studies without additional informed consent from the subject or a legally authorized representative.
 
                             <br><br>You are free to decline to participate, to end participation at any time for any reason, or to refuse to answer any individual question without penalty or loss of earned compensation. We will not retain data from partial responses. If you would like to withdraw your data after participating, you may send an email to lrrgsh@rit.edu.
@@ -154,7 +154,7 @@
             const block_start = {
                 type: jsPsychHtmlKeyboardResponse,
                 choices: [" "],
-                stimulus: "<p>In this study you will complete an Implicit Association Test (IAT) in which you will be asked to sort words and pictures into groups as fast as you can.<br/><br/> You will sort words into categories that don’t have names in English - we will just call them ‘Category 1 Words’ and ‘Category 2 Words’. <br/><br/>You will start by practicing sorting words into Categories 1 and 2 to learn which words go in which category. <br/><br/><br/><br/>" +
+                stimulus: "<p>In this study you will complete an Implicit Association Test (IAT) in which you will be asked to sort words into groups as fast as you can.<br/><br/> You will sort words into categories that don’t have names in English - we will just call them ‘Category 1 Words’ and ‘Category 2 Words’. <br/><br/>You will start by practicing sorting words into Categories 1 and 2 to learn which words go in which category. <br/><br/><br/><br/>" +
                     "Press the <b>space bar</b> when you are ready to start.</p>"
             };
 
